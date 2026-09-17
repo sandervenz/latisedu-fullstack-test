@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'admin@latiseducation.com'],
             [
-                'name' => 'Kandidat IT Fullstack',
+                'name' => 'Admin',
                 'password' => Hash::make('admin123'),
                 'position' => 'IT Fullstack Developer',
                 'image' => null,

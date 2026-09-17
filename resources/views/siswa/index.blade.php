@@ -8,7 +8,7 @@
 <div class="space-y-6">
 
     <!-- Card Top Action & Filters -->
-    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+    <div class="bg-white p-5 rounded-xl border border-slate-200">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             
             <!-- Filter Section (Requirement #7d: Filter dropdown lembaga dari database) -->
@@ -16,7 +16,7 @@
                 <!-- Dropdown Filter Lembaga -->
                 <div class="w-full sm:w-64">
                     <label for="filterLembaga" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Filter Lembaga:</label>
-                    <select id="filterLembaga" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
+                    <select id="filterLembaga" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-colors">
                         <option value="">Semua Lembaga</option>
                         @foreach($lembagas as $l)
                             <option value="{{ $l->nama }}" data-id="{{ $l->id }}">{{ $l->nama }}</option>
@@ -34,7 +34,7 @@
                             </svg>
                         </div>
                         <input type="text" id="customSearchInput" placeholder="Ketik NIS atau Nama..." 
-                               class="w-full pl-9 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
+                               class="w-full pl-9 pr-3.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-colors">
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
             <div class="flex items-center gap-2.5 self-end sm:self-auto">
                 <!-- Tombol Ekspor Excel (Requirement #8: Ekspor sesuai hasil pencarian/filter) -->
                 <button type="button" id="btnExportExcel"
-                        class="inline-flex items-center px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-xl shadow-sm transition-all duration-150 cursor-pointer">
+                        class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
@@ -52,7 +52,7 @@
 
                 <!-- Tombol Tambah Siswa -->
                 <a href="{{ route('siswa.create') }}" 
-                   class="inline-flex items-center px-4 py-2.5 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-500/25 transition-all duration-150">
+                   class="inline-flex items-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-lg transition-colors">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -64,7 +64,7 @@
     </div>
 
     <!-- DataTables Table Container (Requirement #7) -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden p-6">
+    <div class="bg-white rounded-xl border border-slate-200 overflow-hidden p-5">
         <div class="overflow-x-auto">
             <table id="siswaTable" class="w-full text-left border-collapse">
                 <thead>

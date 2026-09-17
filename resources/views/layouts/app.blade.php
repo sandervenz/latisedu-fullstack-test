@@ -66,27 +66,27 @@
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex">
 
     <!-- SIDEBAR (Requirement #9: Terdiri dari Siswa, Profile, dan Logout) -->
-    <aside class="w-64 bg-slate-900 text-white flex flex-col fixed inset-y-0 left-0 z-30 transition-transform duration-300 shadow-xl">
+    <aside class="w-64 bg-slate-900 text-white flex flex-col fixed inset-y-0 left-0 z-30 transition-transform duration-300">
         <!-- Logo & Branding -->
-        <div class="h-20 flex items-center px-6 border-b border-slate-800 bg-slate-950/40">
+        <div class="h-20 flex items-center px-6 border-b border-slate-800 bg-slate-950">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-500 to-amber-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-orange-500/30">
+                <div class="w-10 h-10 rounded-lg bg-orange-500 flex items-center justify-center text-white font-bold text-xl">
                     L
                 </div>
                 <div>
-                    <h1 class="font-extrabold text-base tracking-wide text-white leading-tight">Latis Education</h1>
+                    <h1 class="font-bold text-base text-white leading-tight">Latis Education</h1>
                     <p class="text-xs text-orange-400 font-medium">& Tutor Indonesia</p>
                 </div>
             </div>
         </div>
 
         <!-- Navigation Links -->
-        <div class="flex-1 py-6 px-4 space-y-1.5 overflow-y-auto">
+        <div class="flex-1 py-6 px-4 space-y-1 overflow-y-auto">
             <p class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Menu Utama</p>
 
             <!-- 1. Menu Siswa -->
             <a href="{{ route('siswa.index') }}" 
-               class="flex items-center px-3.5 py-3 text-sm font-medium rounded-xl transition-all duration-150 {{ request()->routeIs('siswa.*') ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30' : 'text-slate-300 hover:bg-slate-800/70 hover:text-white' }}">
+               class="flex items-center px-3.5 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('siswa.*') ? 'bg-orange-500 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
                 <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                 </svg>
@@ -95,7 +95,7 @@
 
             <!-- 2. Menu Profile (Requirement #10) -->
             <a href="{{ route('profile.index') }}" 
-               class="flex items-center px-3.5 py-3 text-sm font-medium rounded-xl transition-all duration-150 {{ request()->routeIs('profile.*') ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30' : 'text-slate-300 hover:bg-slate-800/70 hover:text-white' }}">
+               class="flex items-center px-3.5 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('profile.*') ? 'bg-orange-500 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
                 <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                 </svg>
@@ -104,7 +104,7 @@
 
             <!-- 3. Menu Logout (Requirement #9: Sidebar terdiri dari Siswa, Profile, dan Logout) -->
             <a href="{{ route('logout') }}" 
-               class="flex items-center px-3.5 py-3 text-sm font-medium rounded-xl text-slate-300 hover:bg-rose-500/15 hover:text-rose-300 transition-all duration-150 cursor-pointer">
+               class="flex items-center px-3.5 py-2.5 text-sm font-medium rounded-lg text-slate-300 hover:bg-rose-600/20 hover:text-rose-300 transition-colors cursor-pointer">
                 <svg class="w-5 h-5 mr-3 flex-shrink-0 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                 </svg>
@@ -113,12 +113,12 @@
         </div>
 
         <!-- User Quick Info & 3. Logout (Requirement #9) -->
-        <div class="p-4 border-t border-slate-800/80 bg-slate-950/30">
+        <div class="p-4 border-t border-slate-800 bg-slate-950">
             <div class="flex items-center space-x-3 mb-3 px-2">
                 @if(Auth::user()->image && file_exists(public_path('uploads/profile/' . Auth::user()->image)))
                     <img src="{{ asset('uploads/profile/' . Auth::user()->image) }}" alt="Avatar" class="w-9 h-9 rounded-full object-cover ring-2 ring-orange-500">
                 @else
-                    <div class="w-9 h-9 rounded-full bg-orange-500/20 text-orange-400 ring-1 ring-orange-400 flex items-center justify-center font-bold text-sm">
+                    <div class="w-9 h-9 rounded-full bg-orange-500/20 text-orange-400 ring-1 ring-orange-500 flex items-center justify-center font-bold text-sm">
                         {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                     </div>
                 @endif
@@ -130,7 +130,7 @@
 
             <!-- Tombol Logout Bawah -->
             <a href="{{ route('logout') }}" 
-               class="w-full flex items-center justify-center px-3.5 py-2.5 text-xs font-semibold text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 rounded-xl transition-all duration-150 cursor-pointer">
+               class="w-full flex items-center justify-center px-3 py-2 text-xs font-semibold text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 rounded-lg transition-colors cursor-pointer">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                 </svg>
@@ -142,14 +142,14 @@
     <!-- MAIN CONTENT AREA -->
     <div class="flex-1 flex flex-col ml-64 min-w-0">
         <!-- Topbar Header -->
-        <header class="h-20 bg-white/80 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-20 flex items-center justify-between px-8">
+        <header class="h-16 bg-white border-b border-slate-200 sticky top-0 z-20 flex items-center justify-between px-8">
             <div>
-                <h2 class="text-xl font-bold text-slate-800">@yield('header_title', 'Dashboard')</h2>
+                <h2 class="text-lg font-bold text-slate-800">@yield('header_title', 'Dashboard')</h2>
                 <p class="text-xs text-slate-500">@yield('header_subtitle', 'Portal Pendataan Siswa Latis Education & Tutor Indonesia')</p>
             </div>
             <div class="flex items-center space-x-4">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
+                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span>
                     Sesi Aktif
                 </span>
             </div>
