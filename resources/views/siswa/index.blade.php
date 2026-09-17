@@ -16,7 +16,7 @@
                 <!-- Dropdown Filter Lembaga -->
                 <div class="w-full sm:w-64">
                     <label for="filterLembaga" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Filter Lembaga:</label>
-                    <select id="filterLembaga" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                    <select id="filterLembaga" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
                         <option value="">Semua Lembaga</option>
                         @foreach($lembagas as $l)
                             <option value="{{ $l->nama }}" data-id="{{ $l->id }}">{{ $l->nama }}</option>
@@ -34,7 +34,7 @@
                             </svg>
                         </div>
                         <input type="text" id="customSearchInput" placeholder="Ketik NIS atau Nama..." 
-                               class="w-full pl-9 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                               class="w-full pl-9 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
 
                 <!-- Tombol Tambah Siswa -->
                 <a href="{{ route('siswa.create') }}" 
-                   class="inline-flex items-center px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-sm transition-all duration-150">
+                   class="inline-flex items-center px-4 py-2.5 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-500/25 transition-all duration-150">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -87,7 +87,7 @@
                                          alt="{{ $siswa->nama }}" 
                                          class="w-10 h-10 rounded-full object-cover ring-2 ring-slate-100 mx-auto shadow-sm">
                                 @else
-                                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-700 ring-2 ring-blue-50 mx-auto flex items-center justify-center font-bold text-xs">
+                                    <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-700 ring-2 ring-orange-50 mx-auto flex items-center justify-center font-bold text-xs">
                                         {{ strtoupper(substr($siswa->nama, 0, 2)) }}
                                     </div>
                                 @endif
@@ -105,11 +105,11 @@
                             <!-- Lembaga (Requirement #6a) -->
                             <td>
                                 @if($siswa->nama_lembaga === 'Latiseducation')
-                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-orange-50 text-orange-700 border border-orange-200">
                                         {{ $siswa->nama_lembaga }}
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
                                         {{ $siswa->nama_lembaga }}
                                     </span>
                                 @endif
@@ -121,7 +121,7 @@
                                     <!-- Edit Button -->
                                     <a href="{{ route('siswa.edit', $siswa->id) }}" 
                                        title="Edit Data Siswa"
-                                       class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                                       class="p-2 text-orange-600 hover:bg-orange-50 rounded-lg transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                         </svg>

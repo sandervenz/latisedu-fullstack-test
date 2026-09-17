@@ -227,12 +227,12 @@ class SiswaController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setTitle('Data Siswa');
 
-        // Header Judul Laporan
+        // Header Judul Laporan (Latis Education Orange Brand)
         $sheet->mergeCells('A1:E1');
         $sheet->setCellValue('A1', 'DATA SISWA - ' . strtoupper($filterTitle));
         $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14)->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('FFFFFF'));
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF1E3A8A'); // Dark Blue
+        $sheet->getStyle('A1')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FFC2410C'); // Dark Orange
 
         $sheet->mergeCells('A2:E2');
         $sheet->setCellValue('A2', 'Diekspor pada: ' . date('d-m-Y H:i:s') . ($request->filled('search') ? ' | Filter Pencarian: "' . $request->search . '"' : ''));
@@ -247,7 +247,7 @@ class SiswaController extends Controller
             $col = $columns[$index];
             $sheet->setCellValue($col . '4', $header);
             $sheet->getStyle($col . '4')->getFont()->setBold(true)->setColor(new \PhpOffice\PhpSpreadsheet\Style\Color('FFFFFF'));
-            $sheet->getStyle($col . '4')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FF2563EB'); // Primary Blue
+            $sheet->getStyle($col . '4')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('FFF97316'); // Latis Vibrant Orange
             $sheet->getStyle($col . '4')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         }
 

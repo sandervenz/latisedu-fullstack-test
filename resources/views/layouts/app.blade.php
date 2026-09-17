@@ -33,16 +33,16 @@
             margin-bottom: 0.75rem;
         }
         .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-            background: #2563eb !important;
+            background: #f97316 !important;
             color: #ffffff !important;
-            border: 1px solid #2563eb !important;
+            border: 1px solid #f97316 !important;
             border-radius: 0.5rem !important;
             font-weight: 600;
         }
         .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-            background: #dbeafe !important;
-            color: #1e40af !important;
-            border: 1px solid #93c5fd !important;
+            background: #ffedd5 !important;
+            color: #c2410c !important;
+            border: 1px solid #fdba74 !important;
             border-radius: 0.5rem !important;
         }
         table.dataTable thead th {
@@ -70,12 +70,12 @@
         <!-- Logo & Branding -->
         <div class="h-20 flex items-center px-6 border-b border-slate-800 bg-slate-950/40">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-500 to-amber-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-orange-500/30">
                     L
                 </div>
                 <div>
                     <h1 class="font-extrabold text-base tracking-wide text-white leading-tight">Latis Education</h1>
-                    <p class="text-xs text-slate-400">& Tutor Indonesia</p>
+                    <p class="text-xs text-orange-400 font-medium">& Tutor Indonesia</p>
                 </div>
             </div>
         </div>
@@ -86,7 +86,7 @@
 
             <!-- 1. Menu Siswa -->
             <a href="{{ route('siswa.index') }}" 
-               class="flex items-center px-3.5 py-3 text-sm font-medium rounded-xl transition-all duration-150 {{ request()->routeIs('siswa.*') ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'text-slate-300 hover:bg-slate-800/70 hover:text-white' }}">
+               class="flex items-center px-3.5 py-3 text-sm font-medium rounded-xl transition-all duration-150 {{ request()->routeIs('siswa.*') ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30' : 'text-slate-300 hover:bg-slate-800/70 hover:text-white' }}">
                 <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                 </svg>
@@ -95,7 +95,7 @@
 
             <!-- 2. Menu Profile (Requirement #10) -->
             <a href="{{ route('profile.index') }}" 
-               class="flex items-center px-3.5 py-3 text-sm font-medium rounded-xl transition-all duration-150 {{ request()->routeIs('profile.*') ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30' : 'text-slate-300 hover:bg-slate-800/70 hover:text-white' }}">
+               class="flex items-center px-3.5 py-3 text-sm font-medium rounded-xl transition-all duration-150 {{ request()->routeIs('profile.*') ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30' : 'text-slate-300 hover:bg-slate-800/70 hover:text-white' }}">
                 <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                 </svg>
@@ -107,9 +107,9 @@
         <div class="p-4 border-t border-slate-800/80 bg-slate-950/30">
             <div class="flex items-center space-x-3 mb-3 px-2">
                 @if(Auth::user()->image && file_exists(public_path('uploads/profile/' . Auth::user()->image)))
-                    <img src="{{ asset('uploads/profile/' . Auth::user()->image) }}" alt="Avatar" class="w-9 h-9 rounded-full object-cover ring-2 ring-blue-500">
+                    <img src="{{ asset('uploads/profile/' . Auth::user()->image) }}" alt="Avatar" class="w-9 h-9 rounded-full object-cover ring-2 ring-orange-500">
                 @else
-                    <div class="w-9 h-9 rounded-full bg-blue-500/20 text-blue-400 ring-1 ring-blue-400 flex items-center justify-center font-bold text-sm">
+                    <div class="w-9 h-9 rounded-full bg-orange-500/20 text-orange-400 ring-1 ring-orange-400 flex items-center justify-center font-bold text-sm">
                         {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                     </div>
                 @endif

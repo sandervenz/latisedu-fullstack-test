@@ -34,7 +34,7 @@
                     Lembaga Siswa <span class="text-rose-500">*</span>
                 </label>
                 <select name="lembaga_id" id="lembaga_id" required 
-                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
                     @foreach($lembagas as $lembaga)
                         <option value="{{ $lembaga->id }}" {{ old('lembaga_id', $siswa->lembaga_id) == $lembaga->id ? 'selected' : '' }}>
                             {{ $lembaga->nama }}
@@ -53,7 +53,7 @@
                 </label>
                 <input type="text" name="nis" id="nis" value="{{ old('nis', $siswa->nis) }}" required 
                        pattern="[0-9]+" inputmode="numeric"
-                       class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                       class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
                 <p class="text-xs text-slate-400 mt-1">Format angka, wajib diisi dan harus unik.</p>
                 @error('nis')
                     <p class="text-xs text-rose-500 mt-1.5">{{ $message }}</p>
@@ -66,7 +66,7 @@
                     Nama Siswa Lengkap <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" name="nama" id="nama" value="{{ old('nama', $siswa->nama) }}" required 
-                       class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                       class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
                 @error('nama')
                     <p class="text-xs text-rose-500 mt-1.5">{{ $message }}</p>
                 @enderror
@@ -78,7 +78,7 @@
                     Email Siswa <span class="text-rose-500">*</span>
                 </label>
                 <input type="email" name="email" id="email" value="{{ old('email', $siswa->email) }}" required 
-                       class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+                       class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all">
                 @error('email')
                     <p class="text-xs text-rose-500 mt-1.5">{{ $message }}</p>
                 @enderror
@@ -95,7 +95,7 @@
                         @if($siswa->foto && file_exists(public_path('uploads/siswa/' . $siswa->foto)))
                             <img id="previewImage" src="{{ asset('uploads/siswa/' . $siswa->foto) }}" alt="Foto Siswa" class="w-full h-full object-cover">
                         @else
-                            <div id="avatarInitials" class="w-full h-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-base">
+                            <div id="avatarInitials" class="w-full h-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-base">
                                 {{ strtoupper(substr($siswa->nama, 0, 2)) }}
                             </div>
                             <img id="previewImage" src="" alt="Preview" class="w-full h-full object-cover hidden">
@@ -104,7 +104,7 @@
 
                     <div class="flex-1">
                         <input type="file" name="foto" id="foto" accept=".jpg,.jpeg,.png"
-                               class="block w-full text-xs text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+                               class="block w-full text-xs text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer">
                         <div class="flex items-center justify-between text-xs text-slate-500 mt-1.5">
                             <span>Format diizinkan: <strong>JPG, PNG</strong></span>
                             <span class="text-amber-600 font-medium">Batas Maksimal: <strong>100 KB</strong></span>
@@ -124,7 +124,7 @@
                     Batal
                 </a>
                 <button type="submit" id="btnSubmit"
-                        class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-lg shadow-blue-600/30 transition-all cursor-pointer">
+                        class="px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-500/30 transition-all cursor-pointer">
                     Simpan Perubahan
                 </button>
             </div>
