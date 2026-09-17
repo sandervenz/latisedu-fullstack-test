@@ -34,7 +34,7 @@
                 </label>
                 <select name="lembaga_id" id="lembaga_id" required 
                         class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-colors">
-                    <option value="">-- Pilih Lembaga (Database) --</option>
+                    <option value="">-- Pilih Lembaga --</option>
                     @foreach($lembagas as $lembaga)
                         <option value="{{ $lembaga->id }}" {{ old('lembaga_id') == $lembaga->id ? 'selected' : '' }}>
                             {{ $lembaga->nama }}

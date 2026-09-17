@@ -218,9 +218,10 @@
         });
 
         // Requirement #8: Ekspor Excel menampilkan data siswa sesuai hasil pencarian/filter
-        $('#btnExportExcel').on('click', function() {
+        $('#btnExportExcel').on('click', function(e) {
+            e.preventDefault();
             const selectedOption = $('#filterLembaga').find(':selected');
-            const lembagaId = selectedOption.data('id') || '';
+            const lembagaId = selectedOption.attr('data-id') || selectedOption.data('id') || '';
             const searchTerm = $('#customSearchInput').val().trim();
 
             let exportUrl = "{{ route('siswa.export') }}";
@@ -234,7 +235,14 @@
             }
 
             const finalUrl = exportUrl + (params.toString() ? '?' + params.toString() : '');
-            window.location.href = finalUrl;
+
+            // Memicu download berkas .xlsx secara native di browser
+            const downloadLink = document.createElement('a');
+            downloadLink.href = finalUrl;
+            downloadLink.setAttribute('download', '');
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
         });
     });
 </script>

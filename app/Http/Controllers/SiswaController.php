@@ -290,15 +290,16 @@ class SiswaController extends Controller
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
-        // Output file download
+        // Output file download via Laravel StreamedResponse
         $fileName = 'Data_Siswa_' . preg_replace('/[^A-Za-z0-9_\-]/', '_', $filterTitle) . '_' . date('Ymd_His') . '.xlsx';
 
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . $fileName . '"');
-        header('Cache-Control: max-age=0');
-
-        $writer = new Xlsx($spreadsheet);
-        $writer->save('php://output');
-        exit;
+        return response()->streamDownload(function () use ($spreadsheet) {
+            $writer = new Xlsx($spreadsheet);
+            $writer->save('php://output');
+        }, $fileName, [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Cache-Control' => 'max-age=0, no-cache, no-store, must-revalidate',
+            'Pragma' => 'public',
+        ]);
     }
 }
