@@ -65,17 +65,9 @@
                        class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors">
             </div>
 
-            <!-- Remember Me -->
-            <div class="flex items-center text-xs text-slate-600">
-                <label class="flex items-center cursor-pointer">
-                    <input type="checkbox" name="remember" class="w-4 h-4 text-orange-500 rounded border-slate-300 focus:ring-orange-500">
-                    <span class="ml-2">Ingat Saya</span>
-                </label>
-            </div>
-
             <!-- Submit Button (Solid Orange) -->
             <button type="submit" 
-                    class="w-full py-2.5 px-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg text-sm transition-colors cursor-pointer">
+                    class="w-full py-2.5 px-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg text-sm transition-colors cursor-pointer mt-2">
                 Masuk ke Aplikasi
             </button>
         </form>
