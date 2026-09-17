@@ -11,13 +11,14 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
 });
 
+// Logout Route (Dapat diakses via GET & POST, tanpa error 405 / 419)
+Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
+
 // Authenticated Routes (Session Management)
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return redirect()->route('siswa.index');
     });
-
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // Siswa Routes
     Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
