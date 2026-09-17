@@ -68,9 +68,9 @@ class SiswaController extends Controller
         // Validasi sesuai Requirement #6
         $request->validate([
             'lembaga_id' => ['required', 'exists:lembagas,id'],
-            'nis' => ['required', 'numeric', 'unique:siswas,nis'],
+            'nis' => ['required', 'numeric', 'regex:/^[0-9]+$/', 'unique:siswas,nis'],
             'nama' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
+            'email' => ['required', 'email:rfc,filter', 'max:255'],
             // Foto: Format JPG & PNG, maksimal 100 KB (Requirement #6e)
             'foto' => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:100'],
         ], [
@@ -78,10 +78,11 @@ class SiswaController extends Controller
             'lembaga_id.exists' => 'Lembaga yang dipilih tidak valid.',
             'nis.required' => 'NIS wajib diisi.',
             'nis.numeric' => 'NIS harus berupa angka.',
+            'nis.regex' => 'NIS hanya boleh berisi angka (tanpa huruf atau simbol).',
             'nis.unique' => 'NIS ini sudah terdaftar untuk siswa lain.',
             'nama.required' => 'Nama siswa wajib diisi.',
             'email.required' => 'Email siswa wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
+            'email.email' => 'Format email tidak valid (contoh: nama@domain.com).',
             'foto.required' => 'Foto siswa wajib diunggah.',
             'foto.mimes' => 'Format foto hanya diperbolehkan JPG atau PNG.',
             'foto.max' => 'Ukuran foto maksimal adalah 100 KB sesuai kriteria tes.',
@@ -127,19 +128,20 @@ class SiswaController extends Controller
         // Validasi sesuai Requirement #6
         $request->validate([
             'lembaga_id' => ['required', 'exists:lembagas,id'],
-            'nis' => ['required', 'numeric', 'unique:siswas,nis,' . $siswa->id],
+            'nis' => ['required', 'numeric', 'regex:/^[0-9]+$/', 'unique:siswas,nis,' . $siswa->id],
             'nama' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
+            'email' => ['required', 'email:rfc,filter', 'max:255'],
             'foto' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:100'],
         ], [
             'lembaga_id.required' => 'Lembaga siswa wajib dipilih.',
             'lembaga_id.exists' => 'Lembaga yang dipilih tidak valid.',
             'nis.required' => 'NIS wajib diisi.',
             'nis.numeric' => 'NIS harus berupa angka.',
+            'nis.regex' => 'NIS hanya boleh berisi angka (tanpa huruf atau simbol).',
             'nis.unique' => 'NIS ini sudah terdaftar untuk siswa lain.',
             'nama.required' => 'Nama siswa wajib diisi.',
             'email.required' => 'Email siswa wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
+            'email.email' => 'Format email tidak valid (contoh: nama@domain.com).',
             'foto.mimes' => 'Format foto hanya diperbolehkan JPG atau PNG.',
             'foto.max' => 'Ukuran foto maksimal adalah 100 KB sesuai kriteria tes.',
         ]);

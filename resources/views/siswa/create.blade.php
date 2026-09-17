@@ -52,10 +52,13 @@
                     NIS (Nomor Induk Siswa) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" name="nis" id="nis" value="{{ old('nis') }}" required 
-                       pattern="[0-9]+" inputmode="numeric"
+                       inputmode="numeric" pattern="[0-9]+"
+                       title="NIS hanya boleh diisi dengan angka (0-9)"
+                       onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+                       oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                        placeholder="Contoh: 1004 (Hanya Angka)"
                        class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-colors">
-                <p class="text-xs text-slate-400 mt-0.5">Format angka, wajib diisi dan harus unik.</p>
+                <p class="text-xs text-slate-400 mt-0.5">Wajib angka (0-9), unik, dan tidak dapat diisi huruf/karakter.</p>
                 @error('nis')
                     <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
                 @enderror
@@ -80,8 +83,11 @@
                     Email Siswa <span class="text-rose-500">*</span>
                 </label>
                 <input type="email" name="email" id="email" value="{{ old('email') }}" required 
-                       placeholder="Contoh: siswa@example.com"
+                       pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+                       title="Format email harus valid (contoh: siswa@example.com)"
+                       placeholder="siswa@example.com"
                        class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-colors">
+                <p class="text-xs text-slate-400 mt-0.5">Harus sesuai format email yang valid (contoh: nama@domain.com).</p>
                 @error('email')
                     <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
                 @enderror
