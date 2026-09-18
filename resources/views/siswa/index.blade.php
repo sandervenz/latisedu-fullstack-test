@@ -7,6 +7,45 @@
 @section('content')
 <div class="space-y-6">
 
+    <!-- Dashboard Mini Stats Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-4">
+            <div class="w-11 h-11 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Siswa</p>
+                <h3 class="text-xl font-bold text-slate-800">{{ $stats->total ?? count($siswas) }}</h3>
+            </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-4">
+            <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                </svg>
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Latiseducation</p>
+                <h3 class="text-xl font-bold text-slate-800">{{ $stats->total_latis ?? 0 }}</h3>
+            </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-4">
+            <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+            </div>
+            <div>
+                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tutorindonesia</p>
+                <h3 class="text-xl font-bold text-slate-800">{{ $stats->total_tutor ?? 0 }}</h3>
+            </div>
+        </div>
+    </div>
+
     <!-- Card Top Action & Filters -->
     <div class="bg-white p-5 rounded-xl border border-slate-200">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -14,7 +53,7 @@
             <!-- Filter Section (Requirement #7d: Filter dropdown lembaga dari database) -->
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
                 <!-- Dropdown Filter Lembaga -->
-                <div class="w-full sm:w-64">
+                <div class="w-full sm:w-60">
                     <label for="filterLembaga" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Filter Lembaga:</label>
                     <select id="filterLembaga" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-colors">
                         <option value="">Semua Lembaga</option>
@@ -25,7 +64,7 @@
                 </div>
 
                 <!-- Custom Search (Requirement #7c: Search hanya cari pada kolom NIS & Nama) -->
-                <div class="w-full sm:w-72">
+                <div class="w-full sm:w-64">
                     <label for="customSearchInput" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Cari NIS & Nama:</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -36,6 +75,17 @@
                         <input type="text" id="customSearchInput" placeholder="Ketik NIS atau Nama..." 
                                class="w-full pl-9 pr-3.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-colors">
                     </div>
+                </div>
+
+                <!-- Tombol Reset Filter -->
+                <div class="self-end pt-1">
+                    <button type="button" id="btnResetFilter" title="Reset filter lembaga dan pencarian"
+                            class="w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold rounded-lg transition-colors cursor-pointer">
+                        <svg class="w-3.5 h-3.5 mr-1 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                        Reset
+                    </button>
                 </div>
             </div>
 
@@ -214,6 +264,13 @@
 
         // Event listener saat user memilih dropdown lembaga
         $('#filterLembaga').on('change', function() {
+            table.draw();
+        });
+
+        // Event listener saat tombol Reset Filter diklik
+        $('#btnResetFilter').on('click', function() {
+            $('#filterLembaga').val('');
+            $('#customSearchInput').val('');
             table.draw();
         });
 

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Sistem Pendataan Siswa') - Latis Education</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23f97316'/><text x='50%' y='68%' font-size='60' font-weight='bold' font-family='sans-serif' fill='white' text-anchor='middle'>L</text></svg>">
 
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,8 +66,11 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex">
 
+    <!-- Backdrop untuk Mobile Drawer -->
+    <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/60 z-30 hidden md:hidden transition-opacity"></div>
+
     <!-- SIDEBAR (Requirement #9: Terdiri dari Siswa, Profile, dan Logout) -->
-    <aside class="w-64 bg-slate-900 text-white flex flex-col fixed inset-y-0 left-0 z-30 transition-transform duration-300">
+    <aside id="sidebar" class="w-64 bg-slate-900 text-white flex flex-col fixed inset-y-0 left-0 z-40 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
         <!-- Logo & Branding -->
         <div class="h-20 flex items-center px-6 border-b border-slate-800 bg-slate-950">
             <div class="flex items-center space-x-3">
@@ -131,12 +135,20 @@
     </aside>
 
     <!-- MAIN CONTENT AREA -->
-    <div class="flex-1 flex flex-col ml-64 min-w-0">
+    <div class="flex-1 flex flex-col md:ml-64 min-w-0">
         <!-- Topbar Header -->
-        <header class="h-16 bg-white border-b border-slate-200 sticky top-0 z-20 flex items-center justify-between px-8">
-            <div>
-                <h2 class="text-lg font-bold text-slate-800">@yield('header_title', 'Dashboard')</h2>
-                <p class="text-xs text-slate-500">@yield('header_subtitle', 'Portal Pendataan Siswa Latis Education & Tutor Indonesia')</p>
+        <header class="h-16 bg-white border-b border-slate-200 sticky top-0 z-20 flex items-center justify-between px-4 sm:px-8">
+            <div class="flex items-center">
+                <!-- Mobile Hamburger Button -->
+                <button id="btnToggleSidebar" type="button" class="md:hidden mr-3 p-1.5 rounded-lg text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus:outline-none" aria-label="Buka Menu Sidebar">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+                <div>
+                    <h2 class="text-base sm:text-lg font-bold text-slate-800">@yield('header_title', 'Dashboard')</h2>
+                    <p class="text-xs text-slate-500 hidden sm:block">@yield('header_subtitle', 'Portal Pendataan Siswa Latis Education & Tutor Indonesia')</p>
+                </div>
             </div>
             <div class="flex items-center space-x-4">
                 <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
@@ -197,6 +209,25 @@
     <!-- Scripts (jQuery & DataTables) -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const btnToggle = document.getElementById('btnToggleSidebar');
+
+            if (btnToggle && sidebar && backdrop) {
+                btnToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('-translate-x-full');
+                    backdrop.classList.toggle('hidden');
+                });
+
+                backdrop.addEventListener('click', function() {
+                    sidebar.classList.add('-translate-x-full');
+                    backdrop.classList.add('hidden');
+                });
+            }
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>

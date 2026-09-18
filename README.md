@@ -1,59 +1,107 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Pendataan Siswa - Latis Education & Tutor Indonesia
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi web CRUD pendataan siswa terintegrasi untuk lembaga **Latiseducation** dan **Tutorindonesia** yang dibangun menggunakan **Laravel 12 (11++)**, **Tailwind CSS**, **MySQL**, **DataTables**, dan **PhpSpreadsheet**.
 
-## About Laravel
+Aplikasi ini mencakup fitur autentikasi, session management, prepared statement pada seluruh query database, DataTables dengan custom search & filter, ekspor laporan Excel dinamis, serta manajemen profil kandidat.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Kredensial Login Demo
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Gunakan akun administrator / profil kandidat berikut untuk login ke aplikasi:
 
-## Learning Laravel
+- **URL Login**: `/login`
+- **Email**: `admin@latiseducation.com`
+- **Password**: `admin123`
+- **Role / Posisi**: IT Fullstack Developer
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Panduan Instalasi Lokal
 
-## Laravel Sponsors
+### 1. Kebutuhan Sistem
+- PHP >= 8.2 (ekstensi `pdo_mysql`, `gd`, `zip`, `mbstring` aktif)
+- Composer >= 2.x
+- Node.js >= 18.x & NPM
+- MySQL Server (XAMPP, Laragon, Docker, dsb.)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Langkah Instalasi
 
-### Premium Partners
+1. **Clone repositori**:
+   ```bash
+   git clone https://github.com/sandervenz/latisedu-fullstack-test.git
+   cd latisedu-fullstack-test
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2. **Install dependensi PHP & JavaScript**:
+   ```bash
+   composer install
+   npm install
+   ```
 
-## Contributing
+3. **Konfigurasi Environment**:
+   Salin file `.env.example` menjadi `.env`:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   Buka file `.env` dan sesuaikan koneksi database MySQL:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=latisedu_db
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. **Migrasi Database & Seeding Data Awal**:
+   Jalankan migrasi dan seeder untuk membuat tabel lembaga, 20 data siswa siap pakai, dan akun admin:
+   ```bash
+   php artisan migrate --seed
+   ```
+   *(Atau alternatif: buat database `latisedu_db` di phpMyAdmin lalu import file `database/latisedu_db.sql`)*.
 
-## Code of Conduct
+5. **Build Aset Frontend**:
+   ```bash
+   npm run build
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. **Jalankan Aplikasi**:
+   ```bash
+   php artisan serve
+   ```
+   Buka browser di `http://localhost:8000`.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Menjalankan Automated Tests
 
-## License
+Aplikasi dilengkapi suite pengujian otomatis untuk memvalidasi kriteria input (NIS angka murni, penolakan simbol/huruf, format email valid):
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan test
+```
+
+---
+
+## Panduan Deployment ke InfinityFree (Free Hosting)
+
+1. **Build Aset**:
+   Pastikan telah menjalankan `npm run build` di komputer lokal sehingga folder `public/build` terisi aset terkompilasi.
+2. **Setup Database**:
+   - Di vPanel InfinityFree, buat database baru pada menu **MySQL Databases**.
+   - Buka **phpMyAdmin** database tersebut, lalu **Import** berkas `database/latisedu_db.sql`.
+3. **Struktur Folder di Server**:
+   - Letakkan isi dari folder `public/` lokal ke dalam folder `htdocs/` di hosting.
+   - Buat folder baru `laravel_core/` (sejajar dengan `htdocs`), lalu upload seluruh file proyek lainnya ke dalam `laravel_core/` (termasuk folder `vendor` dan `.env`).
+   - Edit file `htdocs/index.php` pada baris require:
+     ```php
+     require __DIR__.'/../laravel_core/vendor/autoload.php';
+     $app = require_once __DIR__.'/../laravel_core/bootstrap/app.php';
+     ```
+4. **Konfigurasi `.env` di Hosting**:
+   Sesuaikan `DB_HOST`, `DB_DATABASE`, `DB_USERNAME`, dan `DB_PASSWORD` dengan data dari vPanel InfinityFree.
+
+---
+

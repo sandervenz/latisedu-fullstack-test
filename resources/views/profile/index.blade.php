@@ -87,9 +87,24 @@
                 <label for="image" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
                     Foto Profil (Opsional)
                 </label>
-                <input type="file" name="image" id="image" accept=".jpg,.jpeg,.png"
-                       class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-3.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer">
-                <p class="text-xs text-slate-400 mt-1">Format: JPG, PNG. Maksimal 500 KB.</p>
+                <div class="flex items-center gap-4">
+                    <div id="profilePreviewBox" class="w-14 h-14 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden flex-shrink-0 flex items-center justify-center">
+                        @if($user->image && file_exists(public_path('uploads/profile/' . $user->image)))
+                            <img id="profilePreviewImg" src="{{ asset('uploads/profile/' . $user->image) }}" alt="Preview" class="w-full h-full object-cover">
+                        @else
+                            <div id="profilePlaceholder" class="w-full h-full bg-orange-500/20 text-orange-600 flex items-center justify-center font-bold text-lg">
+                                {{ strtoupper(substr($user->name, 0, 1)) }}
+                            </div>
+                            <img id="profilePreviewImg" src="" alt="Preview" class="w-full h-full object-cover hidden">
+                        @endif
+                    </div>
+                    <div class="flex-1">
+                        <input type="file" name="image" id="image" accept=".jpg,.jpeg,.png"
+                               class="block w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer">
+                        <p class="text-xs text-slate-400 mt-1">Format: JPG, PNG. Maksimal 500 KB.</p>
+                        <p id="profileFileWarning" class="text-xs text-rose-600 font-semibold mt-1 hidden"></p>
+                    </div>
+                </div>
                 @error('image')
                     <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
                 @enderror
@@ -106,3 +121,31 @@
 
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.getElementById('image').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        const previewImg = document.getElementById('profilePreviewImg');
+        const placeholder = document.getElementById('profilePlaceholder');
+        const warning = document.getElementById('profileFileWarning');
+
+        if (!file) return;
+
+        if (file.size > 500 * 1024) {
+            warning.textContent = 'Peringatan: Ukuran foto profil melebihi batas 500 KB!';
+            warning.classList.remove('hidden');
+        } else {
+            warning.classList.add('hidden');
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            previewImg.src = event.target.result;
+            previewImg.classList.remove('hidden');
+            if (placeholder) placeholder.classList.add('hidden');
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+@endpush

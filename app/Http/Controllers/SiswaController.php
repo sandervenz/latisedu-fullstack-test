@@ -47,7 +47,16 @@ class SiswaController extends Controller
 
         $siswas = DB::select($query, $bindings);
 
-        return view('siswa.index', compact('siswas', 'lembagas'));
+        // Statistik ringkas untuk widget dashboard
+        $stats = DB::selectOne(
+            "SELECT COUNT(*) as total, 
+                    COALESCE(SUM(CASE WHEN l.nama = 'Latiseducation' THEN 1 ELSE 0 END), 0) as total_latis, 
+                    COALESCE(SUM(CASE WHEN l.nama = 'Tutorindonesia' THEN 1 ELSE 0 END), 0) as total_tutor 
+             FROM siswas s 
+             JOIN lembagas l ON s.lembaga_id = l.id"
+        );
+
+        return view('siswa.index', compact('siswas', 'lembagas', 'stats'));
     }
 
     /**
@@ -90,9 +99,12 @@ class SiswaController extends Controller
 
         $fotoNama = null;
         if ($request->hasFile('foto')) {
+            $destinationPath = public_path('uploads/siswa');
+            File::ensureDirectoryExists($destinationPath);
+
             $file = $request->file('foto');
-            $fotoNama = 'siswa_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/siswa'), $fotoNama);
+            $fotoNama = 'siswa_' . time() . '_' . uniqid() . '.' . $file->extension();
+            $file->move($destinationPath, $fotoNama);
         }
 
         // Simpan menggunakan Prepared Statement (Requirement #5)
@@ -149,14 +161,17 @@ class SiswaController extends Controller
         $fotoNama = $siswa->foto;
 
         if ($request->hasFile('foto')) {
+            $destinationPath = public_path('uploads/siswa');
+            File::ensureDirectoryExists($destinationPath);
+
             // Hapus foto lama jika ada
-            if ($siswa->foto && File::exists(public_path('uploads/siswa/' . $siswa->foto))) {
-                File::delete(public_path('uploads/siswa/' . $siswa->foto));
+            if ($siswa->foto && File::exists($destinationPath . '/' . $siswa->foto)) {
+                File::delete($destinationPath . '/' . $siswa->foto);
             }
 
             $file = $request->file('foto');
-            $fotoNama = 'siswa_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/siswa'), $fotoNama);
+            $fotoNama = 'siswa_' . time() . '_' . uniqid() . '.' . $file->extension();
+            $file->move($destinationPath, $fotoNama);
         }
 
         // Update dengan Prepared Statement (Requirement #5)
@@ -253,14 +268,22 @@ class SiswaController extends Controller
             $sheet->getStyle($col . '4')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         }
 
+        // Sanitasi untuk mencegah Excel/CSV Formula Injection
+        $sanitizeFormula = function ($val) {
+            if (is_string($val) && strlen($val) > 0 && in_array($val[0], ['=', '+', '-', '@', "\t", "\r"])) {
+                return "'" . $val;
+            }
+            return $val;
+        };
+
         // Isi Data Baris
         $row = 5;
         $no = 1;
         foreach ($dataSiswa as $item) {
             $sheet->setCellValue('A' . $row, $no++);
             $sheet->setCellValueExplicit('B' . $row, $item->nis, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-            $sheet->setCellValue('C' . $row, $item->nama);
-            $sheet->setCellValue('D' . $row, $item->email);
+            $sheet->setCellValue('C' . $row, $sanitizeFormula($item->nama));
+            $sheet->setCellValue('D' . $row, $sanitizeFormula($item->email));
             $sheet->setCellValue('E' . $row, $item->nama_lembaga);
 
             // Alignment

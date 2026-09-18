@@ -41,13 +41,16 @@ class ProfileController extends Controller
         $imageName = $user->image;
 
         if ($request->hasFile('image')) {
-            if ($user->image && File::exists(public_path('uploads/profile/' . $user->image))) {
-                File::delete(public_path('uploads/profile/' . $user->image));
+            $destinationPath = public_path('uploads/profile');
+            File::ensureDirectoryExists($destinationPath);
+
+            if ($user->image && File::exists($destinationPath . '/' . $user->image)) {
+                File::delete($destinationPath . '/' . $user->image);
             }
 
             $file = $request->file('image');
-            $imageName = 'candidate_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/profile'), $imageName);
+            $imageName = 'candidate_' . time() . '.' . $file->extension();
+            $file->move($destinationPath, $imageName);
         }
 
         // Update dengan Prepared Statement (Requirement #5)
