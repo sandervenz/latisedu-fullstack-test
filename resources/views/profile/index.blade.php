@@ -2,7 +2,7 @@
 
 @section('title', 'Profil Kandidat')
 @section('header_title', 'Profil')
-@section('header_subtitle', 'Informasi Kandidat & Administrator (Requirement #10)')
+@section('header_subtitle', 'Informasi Kandidat & Administrator')
 
 @section('content')
 <div class="max-w-3xl mx-auto space-y-6">
